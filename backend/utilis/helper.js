@@ -9,4 +9,25 @@ const hashPassword = async (password) => {
   return hash;
 };
 
-export { hashPassword };
+const validateRegisterInput = ({ email, username, password }) => {
+  if (!username || !email || !password) {
+    return "All fields are required";
+  }
+
+  if (username.length < 3) {
+    return "Username should be at least 3 characters long";
+  }
+
+  if (password.length < 6) {
+    return "Password should be at least 6 characters long";
+  }
+
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])/;
+  if (!passwordRegex.test(password)) {
+    return "Password must contain at least one uppercase letter and one special character";
+  }
+
+  return null; // no error
+};
+
+export { hashPassword, validateRegisterInput };

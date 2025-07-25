@@ -1,6 +1,6 @@
 import User from "../../models/user/userModel.js";
 import generateToken from "../../utilis/generateToken.js";
-import { hashPassword } from "../../utilis/helper.js";
+import { hashPassword, validateRegisterInput } from "../../utilis/helper.js";
 
 // @desc  Register User
 // @route POST /api/user
@@ -9,19 +9,13 @@ const registerUser = async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    if (password.length < 6) {
-      return res.status.json({
-        message: "Password should be at least 6 character long",
-      });
-    }
-    if (username.length < 3) {
-      return res.status.json({
-        message: "Username should be at least 3 character long",
-      });
+    const validationError = validateRegisterInput({
+      email,
+      username,
+      password,
+    });
+    if (validationError) {
+      return res.status(400).json({ message: validationError });
     }
 
     const existingEmail = await User.findOne({ email });
@@ -63,6 +57,9 @@ const registerUser = async (req, res) => {
   }
 };
 
+// @desc  Login User
+// @route POST /api/user/login
+// @access Public
 const loginUser = async (req, res) => {
   res.send("Login Controller");
 };

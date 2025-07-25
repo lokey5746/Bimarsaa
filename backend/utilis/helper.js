@@ -30,4 +30,8 @@ const validateRegisterInput = ({ email, username, password }) => {
   return null; // no error
 };
 
-export { hashPassword, validateRegisterInput };
+const verifyPassword = async (password, hash) => {
+  return await bcrypt.compare(password, hash);
+};
+
+export { hashPassword, validateRegisterInput, verifyPassword };

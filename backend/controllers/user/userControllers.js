@@ -100,8 +100,12 @@ const loginUser = async (req, res) => {
   }
 };
 
+// @desc  Logout User
+// @route POST /api/user/logout
+// @access Private
 const logoutUser = async (req, res) => {
-  res.send("Logout Controller");
+  try {
+  } catch (error) {}
 };
 
 export { registerUser, loginUser, logoutUser };

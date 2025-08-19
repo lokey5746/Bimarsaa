@@ -9,6 +9,7 @@ const hashPassword = async (password) => {
   return hash;
 };
 
+// validation input feilds
 const validateRegisterInput = ({ email, username, password }) => {
   if (!username || !email || !password) {
     return "All fields are required";
